@@ -1,0 +1,27 @@
+{
+  "name": "ablog",
+  "version": "0.0.0",
+  "private": true,
+  "description": "课堂作业 Orz",
+  "main": "build/app.js",
+  "scripts": {
+    "install": "lerna bootstrap",
+    "dev": "concurrently 'cd apps/api && npm run dev' 'cd apps/web && npm run dev'",
+    "build": "",
+    "deploy": "",
+    "lint": "tslint apps/*/src/**/*{.ts,tsx} --fix"
+  },
+  "engines": {
+    "node": ">= 7.6.0"
+  },
+  "author": "qingwei-li <cinwell.li@gmail.com> (https://github.com/QingWei-Li)",
+  "license": "WTFPL",
+  "devDependencies": {
+    "concurrently": "^3.4.0",
+    "lerna": "^2.0.0-rc.5",
+    "tslint": "^5.4.3",
+    "tslint-config-prettier": "^1.1.0",
+    "tslint-react": "^3.0.0",
+    "typescript": "^2.3.4"
+  }
+}

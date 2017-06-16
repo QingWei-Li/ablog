@@ -1,0 +1,30 @@
+.Card
+  border 1px solid #f4f5f6
+  margin 16px
+  border-radius 2px
+  text-align left
+  height 260px
+  padding 0!important
+  overflow hidden
+
+  &__picture
+    height 60%
+
+    & a
+      display block
+      height 100%
+      background-repeat no-repeat
+      background-size cover
+      background-position center center
+      background-color #f4f5f6
+
+  &__content
+    flex auto
+
+  @media (min-width: 40.0rem)
+    &
+      display flex!important
+
+      &__picture
+        width 40%
+        height 100%
