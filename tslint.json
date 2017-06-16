@@ -6,6 +6,7 @@
     "tslint-config-prettier"
   ],
   "rules": {
+    "no-string-literal": false,
     "object-literal-sort-keys": false,
     "no-console": [
       false

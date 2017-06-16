@@ -5,7 +5,7 @@ import { h } from "preact";
 export default function({
   className,
   post
-}: { className: string; post?: IPost }) {
+}: { className: string; post: IPost }) {
   return (
     <div class={`${className} Card`}>
       <div class="Card__picture">

@@ -7,13 +7,11 @@
   "scripts": {
     "test": "npm run lint",
     "build": "tsc",
-    "lint": "tslint src/**/*.ts --fix",
     "dev": "nodemon -w src -x ts-node src/index.ts"
   },
   "dependencies": {
     "boom": "^5.1.0",
-    "config": "^1.26.1",
-    "dotenv": "^4.0.0",
+    "dotenv-safe": "^4.0.4",
     "kcors": "^2.2.1",
     "koa": "^2.2.0",
     "koa-bodyparser": "^4.2.0",
@@ -30,7 +28,6 @@
     "@types/mongoose": "^4.7.17",
     "nodemon": "^1.11.0",
     "ts-node": "^3.0.6",
-    "tslint": "^5.4.3",
     "typescript": "^2.3.4"
   },
   "engines": {

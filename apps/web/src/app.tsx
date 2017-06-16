@@ -1,6 +1,5 @@
 import "@/styles/static.styl";
 import { h, render } from "preact";
-import "web-polyfill";
 
 let root;
 function init() {
