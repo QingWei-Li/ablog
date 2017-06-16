@@ -7,7 +7,7 @@
   "scripts": {
     "install": "lerna bootstrap",
     "dev": "concurrently 'cd apps/api && npm run dev' 'cd apps/web && npm run dev'",
-    "build": "",
+    "build": "lerna exec 'npm run build'",
     "deploy": "",
     "lint": "tslint apps/*/src/**/*{.ts,tsx} --fix"
   },
