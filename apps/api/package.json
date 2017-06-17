@@ -3,11 +3,12 @@
   "version": "0.0.0",
   "private": true,
   "description": "ablog-api",
-  "main": "build/app.js",
+  "main": "build/index.js",
   "scripts": {
     "test": "npm run lint",
     "build": "tsc",
-    "dev": "nodemon -w src -x ts-node src/index.ts"
+    "start": "node build/index.js",
+    "dev": "nodemon -w src -x ts-node -r dotenv-safe/config src/index.ts"
   },
   "dependencies": {
     "boom": "^5.1.0",
