@@ -7,7 +7,7 @@ import Home from "./Home";
 import List from "./List";
 
 function getEdit() {
-  return System.import("./Edit.tsx").then((m: any) => m.default);
+  return System.import("./Edit").then((m: any) => m.default);
 }
 
 const Placeholder = () =>
