@@ -6,8 +6,10 @@ import {
   Param,
   Post,
   QueryParam,
-  Route
+  Route,
+  Use
 } from "trafficlight";
+import Authorized from "../middlewares/authorized";
 import { IPostModel, PostModel } from "../models/post";
 import { UserModel } from "../models/user";
 
@@ -43,6 +45,7 @@ export default class PostsController {
     if (type === "hot") {
       // @TODO
       // 如何通过 comments 排序。。
+      return await PostModel.find({}).limit(limit);
     } else if (type === "new") {
       return await PostModel.find({}).sort("-createAt").limit(limit);
     }
@@ -50,11 +53,13 @@ export default class PostsController {
     throw Boom.badRequest("Only supports `new` or `hot` type");
   }
 
+  @Use(Authorized)
   @Post()
   public async create(@Body() body: IPostModel): Promise<IPostModel> {
     return await PostModel.create(body);
   }
 
+  @Use(Authorized)
   @Route("patch", "/:id")
   public async update(
     @Param("id") id: string,

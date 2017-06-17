@@ -3,8 +3,8 @@ import { Document, model, Schema } from "mongoose";
 export interface ICommentModel extends Document {
   rawContent: string;
   content: string;
-  username: string;
-  useremail: string;
+  username?: string;
+  useremail?: string;
   post: string;
   createdAt: Date;
   updatedAt: Date;

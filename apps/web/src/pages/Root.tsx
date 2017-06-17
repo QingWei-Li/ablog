@@ -6,7 +6,7 @@ import { Link } from "preact-router/match";
 import Home from "./Home";
 import List from "./List";
 
-function Edit() {
+function getEdit() {
   return System.import("./Edit.tsx").then((m: any) => m.default);
 }
 
@@ -47,7 +47,7 @@ class Root extends Component<{}, null> {
             <List path="/posts" />
             <AsyncRoute
               path="/edit"
-              component={Edit}
+              component={getEdit}
               loading={() => <Placeholder />}
             />
           </Router>

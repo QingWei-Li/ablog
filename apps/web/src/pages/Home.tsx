@@ -29,8 +29,8 @@ export default class Home extends Component<
   { newList: IPost; hotList: IPost }
 > {
   public async componentDidMount() {
-    const newList = await http.get("/posts?_limit=4");
-    const hotList = await http.get("/posts?_limit=4");
+    const newList = await http.get("/posts/type/new");
+    const hotList = await http.get("/posts/type/hot");
 
     this.setState({
       newList: chunk(newList.data, 2),

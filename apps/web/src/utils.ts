@@ -14,7 +14,7 @@ export function random(min: number, max: number) {
  * initialize axios
  */
 const instance = axios.create({
-  baseURL: "http://jsonplaceholder.typicode.com"
+  baseURL: `${process.env.API_URI}/v1/`
 });
 
 instance.interceptors.request.use(config => {

@@ -9,12 +9,6 @@
     "dev": "poi",
     "build": "poi build"
   },
-  "poi": {
-    "sourceMap": false,
-    "presets": [
-      "typescript"
-    ]
-  },
   "homepage": "https://ablog.surge.sh/",
   "author": "qingwei-li <cinwell.li@gmail.com> (https://github.com/QingWei-Li)",
   "devDependencies": {
