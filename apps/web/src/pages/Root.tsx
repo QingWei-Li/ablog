@@ -10,6 +10,26 @@ function Edit() {
   return System.import("./Edit.tsx").then((m: any) => m.default);
 }
 
+const Placeholder = () =>
+  <div>
+    <div class="Placeholder">
+      <div class="Placeholder__img" />
+    </div>
+    {Array(4).fill("").map((o, index) =>
+      <div class="Placeholder">
+        {Array(3 - index)
+          .fill("")
+          .map(() => <div class="Placeholder__inline" />)}
+        <div
+          class={
+            "Placeholder__inline " +
+            (index < 3 ? "Placeholder__inline--leftover" : "")
+          }
+        />
+      </div>
+    )}
+  </div>;
+
 class Root extends Component<{}, null> {
   public render() {
     return (
@@ -25,7 +45,11 @@ class Root extends Component<{}, null> {
             <Home path="/" />
             <List path="/u/:user" />
             <List path="/posts" />
-            <AsyncRoute path="/edit" component={Edit} />
+            <AsyncRoute
+              path="/edit"
+              component={Edit}
+              loading={() => <Placeholder />}
+            />
           </Router>
           <footer class="Footer">
             ❤ <a href="//github.com/QingWei-Li/ablog">GitHub</a>
