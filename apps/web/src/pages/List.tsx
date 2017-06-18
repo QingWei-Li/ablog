@@ -1,7 +1,7 @@
 import Avatar from "@/components/Avatar";
 import "@/styles/PageList.styl";
-import { Component, h } from "preact";
 import { http } from "@/utils";
+import { Component, h } from "preact";
 
 const MainBanner = ({ count }) =>
   <div class="List__banner">

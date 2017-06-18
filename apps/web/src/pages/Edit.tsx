@@ -1,4 +1,6 @@
 import Upload from "@/components/Upload";
+import "@/styles/PageEdit.styl";
+import "font-awesome/css/font-awesome.css";
 import * as hljs from "highlight.js";
 import "highlight.js/styles/github.css";
 // tslint:disable-next-line:ordered-imports
@@ -12,6 +14,13 @@ const inlineAttachment = window["inlineAttachment"];
 window["hljs"] = hljs;
 
 export default class Edit extends Component<any, any> {
+  public constructor(props, context) {
+    super(props, context);
+    this.state = {
+      formData: {}
+    };
+  }
+
   public componentDidMount() {
     this.initEditor(this.state.eidtor);
   }
@@ -19,9 +28,15 @@ export default class Edit extends Component<any, any> {
   public initEditor(node: Element) {
     const simplemde = new SimpleMDE({
       element: node,
+      autoDownloadFontAwesome: false,
       spellChecker: false,
       renderingConfig: {
         codeSyntaxHighlighting: true
+      },
+      autosave: {
+        enabled: true,
+        uniqueId: "post_new",
+        delay: 1000
       }
     });
 
@@ -51,15 +66,43 @@ export default class Edit extends Component<any, any> {
         return false;
       }
     });
+
+    simplemde.codemirror.on("change", () => {
+      const rawContent = simplemde.value();
+      const content = simplemde.options.previewRender(rawContent);
+
+      const state = {
+        formData: {
+          rawContent,
+          content,
+          summary: content.slice(0, 100)
+        }
+      };
+      this.setState(state);
+    });
   }
 
   public render() {
     return (
-      <div>
-        <Upload onChange={this.linkState("picture")} />
-        <textarea placeholder="添加标题" />
-        <textarea ref={editor => this.setState({ editor })} />
-      </div>
+      <form class="Edit">
+        <Upload onChange={this.linkState("formData.picture")}>
+          <h4>添加题图</h4>
+          <p>点击或者拖拽上传</p>
+        </Upload>
+        <input
+          required={true}
+          onChange={this.linkState("formData.title")}
+          class="Edit__title"
+          type="text"
+          placeholder="添加标题"
+        />
+        <div>
+          <textarea ref={editor => this.setState({ editor })} />
+        </div>
+        <div class="Edit__submit">
+          <input type="submit" value="发布" />
+        </div>
+      </form>
     );
   }
 }

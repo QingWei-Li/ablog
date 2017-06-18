@@ -1,4 +1,5 @@
 import Avatar from "@/components/Avatar";
+import { EditPlaceholder, LoginPlaceholder } from "@/components/Placeholder";
 import "@/styles/PageRoot.styl";
 import { http } from "@/utils";
 import { Component, h } from "preact";
@@ -9,31 +10,14 @@ import * as store2 from "store2";
 
 import Home from "./Home";
 import List from "./List";
-import Login from "./Login";
 
 function getEdit() {
   return System.import("./Edit").then((m: any) => m.default);
 }
 
-const Placeholder = () =>
-  <div>
-    <div class="Placeholder">
-      <div class="Placeholder__img" />
-    </div>
-    {Array(4).fill("").map((o, index) =>
-      <div class="Placeholder">
-        {Array(3 - index)
-          .fill("")
-          .map(() => <div class="Placeholder__inline" />)}
-        <div
-          class={
-            "Placeholder__inline " +
-            (index < 3 ? "Placeholder__inline--leftover" : "")
-          }
-        />
-      </div>
-    )}
-  </div>;
+function getLogin() {
+  return System.import("./Login").then((m: any) => m.default);
+}
 
 const NavTool = ({ user }) =>
   <div class="float-right Nav__tool">
@@ -77,11 +61,15 @@ class Root extends Component<{}, any> {
             <Home path="/" user={user} />
             <List path="/u/:name" user={user} />
             <List path="/posts" />
-            <Login path="/login" />
+            <AsyncRoute
+              path="/login"
+              component={getLogin}
+              loading={() => <LoginPlaceholder />}
+            />
             <AsyncRoute
               path="/edit"
               component={getEdit}
-              loading={() => <Placeholder />}
+              loading={() => <EditPlaceholder />}
             />
           </Router>
           <footer class="Footer">

@@ -1,4 +1,5 @@
 import Card from "@/components/Card";
+import { CardPlaceholder } from "@/components/Placeholder";
 import { IPost } from "@/interface";
 import "@/styles/PageHome.styl";
 import { http } from "@/utils";
@@ -10,19 +11,6 @@ const Banner = () =>
   <div class="Home__banner">
     <h1>纸糊专栏</h1>
     <p>爱写不写，爱看不看</p>
-  </div>;
-
-const Placeholder = () =>
-  <div class="row">
-    {Array(2).fill("").map(n =>
-      <div class="column Placeholder">
-        <div class="Placeholder__avatar" />
-        <div class="Placeholder__metaInline" />
-        <div class="Placeholder__inline" />
-        <div class="Placeholder__inline" />
-        <div class="Placeholder__inline Placeholder__inline--leftover" />
-      </div>
-    )}
   </div>;
 
 export default class Home extends Component<
@@ -56,7 +44,7 @@ export default class Home extends Component<
                   {group.map(post => <Card className="column" post={post} />)}
                 </div>
               )
-            : <Placeholder />}
+            : <CardPlaceholder />}
         </div>
         <div class="Home__part">
           <h4 class="Home__part__title">热门</h4>
@@ -66,7 +54,7 @@ export default class Home extends Component<
                   {group.map(post => <Card className="column" post={post} />)}
                 </div>
               )
-            : <Placeholder />}
+            : <CardPlaceholder />}
         </div>
         <div class="Home__part">
           <Link href="/posts">查看全部</Link>

@@ -1,5 +1,7 @@
 import "@/styles/Upload.styl";
+import { http } from "@/utils";
 import { Component, h } from "preact";
+import * as Dropzone from "react-dropzone";
 
 interface IUploadProps {
   id?: string;
@@ -8,26 +10,36 @@ interface IUploadProps {
   onChange: (...args) => void;
 }
 
-export default class Upload extends Component<IUploadProps, null> {
-  public uploadFile = (e: Event) => {
-    e.preventDefault();
-    console.log(this);
-    this.props.onChange();
+export default class Upload extends Component<IUploadProps, any> {
+  public uploadFile = async file => {
+    file = file[0];
+
+    const data = new FormData();
+
+    this.setState({ file });
+    data.append("smfile", file);
+    const result = await http.post("https://sm.ms/api/upload", data, {
+      withCredentials: false
+    });
+
+    this.props.onChange(result.data.data);
   };
 
-  public render({ id = "input", height, width, onChange }) {
+  public render({ id = "input", height, width, onChange }, { file }) {
     return (
-      <div
-        onClick={this.uploadFile}
+      <Dropzone
+        style={{
+          backgroundImage: file ? `url(${file.preview})` : "",
+          height,
+          width
+        }}
+        accept="image/jpeg, image/png"
         class="Upload"
-        style={{ height, width }}
-        onDrag={this.uploadFile}
+        multiple={false}
+        onDrop={this.uploadFile}
       >
-        <input id={id} type="file" />
-        <div class="Upload__text">
-          {this.props.children}
-        </div>
-      </div>
+        {file ? "" : <div class="Upload__text">{this.props.children}</div>}
+      </Dropzone>
     );
   }
 }
