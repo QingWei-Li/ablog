@@ -21,8 +21,8 @@ const PostSchema = new Schema(
     comments: [{ type: Schema.Types.ObjectId, ref: "Comment", required: true }],
     content: { type: String, required: true },
     rawContent: { type: String, required: true },
-    summary: { type: String },
-    picture: { type: String, required: true }
+    summary: { type: String, required: true },
+    picture: { type: String }
   },
   {
     timestamps: true

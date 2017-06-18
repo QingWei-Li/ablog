@@ -38,6 +38,7 @@
     "react-dropzone": "^3.13.2",
     "simplemde": "^1.11.2",
     "store2": "^2.5.1",
+    "striptags": "^3.0.1",
     "timeago-react": "^1.2.2",
     "zoom-image": "^0.1.4"
   },

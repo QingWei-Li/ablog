@@ -9,9 +9,12 @@ import {
   Route,
   Use
 } from "trafficlight";
+import { CurrentSession } from "../lib/decorates";
 import Authorized from "../middlewares/authorized";
 import { IPostModel, PostModel } from "../models/post";
 import { UserModel } from "../models/user";
+
+const LIST_SELECT = "summary picture createdAt title author comments";
 
 @Controller("/posts")
 export default class PostsController {
@@ -31,9 +34,11 @@ export default class PostsController {
 
       result = await PostModel.find({
         author: user._id
-      });
+      })
+        .select(LIST_SELECT)
+        .populate("author");
     }
-    result = await PostModel.find({});
+    result = await PostModel.find({}).select(LIST_SELECT).populate("author");
 
     return {
       count: result.length,
@@ -51,9 +56,17 @@ export default class PostsController {
     if (type === "hot") {
       // @TODO
       // 如何通过 comments 排序。。
-      return await PostModel.find({}).limit(limit);
+      return await PostModel.find({})
+        .limit(limit)
+        .sort("-createAt")
+        .select(LIST_SELECT)
+        .populate("author");
     } else if (type === "new") {
-      return await PostModel.find({}).sort("-createAt").limit(limit);
+      return await PostModel.find({})
+        .sort("-createAt")
+        .select(LIST_SELECT)
+        .populate("author")
+        .limit(limit);
     }
 
     throw Boom.badRequest("Only supports `new` or `hot` type");
@@ -61,7 +74,12 @@ export default class PostsController {
 
   @Use(Authorized)
   @Post()
-  public async create(@Body() body: IPostModel): Promise<IPostModel> {
+  public async create(
+    @CurrentSession() session: any,
+    @Body() body: IPostModel
+  ): Promise<IPostModel> {
+    body.author = session.user;
+
     return await PostModel.create(body);
   }
 
@@ -76,6 +94,6 @@ export default class PostsController {
 
   @Get("/:id")
   public async getById(@Param("id") id: string): Promise<IPostModel> {
-    return await PostModel.findById(id);
+    return await PostModel.findById(id).populate("author").populate("comments");
   }
 }

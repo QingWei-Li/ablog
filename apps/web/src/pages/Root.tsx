@@ -10,6 +10,7 @@ import * as store2 from "store2";
 
 import Home from "./Home";
 import List from "./List";
+import Post from "./Post";
 
 function getEdit() {
   return System.import("./Edit").then((m: any) => m.default);
@@ -61,6 +62,7 @@ class Root extends Component<{}, any> {
             <Home path="/" user={user} />
             <List path="/u/:name" user={user} />
             <List path="/posts" />
+            <Post path="/posts/:id" />
             <AsyncRoute
               path="/login"
               component={getLogin}

@@ -22,7 +22,7 @@ export default class Upload extends Component<IUploadProps, any> {
       withCredentials: false
     });
 
-    this.props.onChange(result.data.data);
+    this.props.onChange(result.data.data.url);
   };
 
   public render({ id = "input", height, width, onChange }, { file }) {
