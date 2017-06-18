@@ -21,18 +21,24 @@ export default class PostsController {
   @Get()
   public async get(
     @QueryParam("author") author?: string
-  ): Promise<IPostModel[]> {
+  ): Promise<{ count: number; data: IPostModel[] }> {
+    let result;
+
     if (author) {
       const user = await UserModel.findOne({
         name: author
       });
 
-      return await PostModel.find({
+      result = await PostModel.find({
         author: user._id
       });
     }
+    result = await PostModel.find({});
 
-    return await PostModel.find({});
+    return {
+      count: result.length,
+      data: result
+    };
   }
 
   @Get("/type/:type")

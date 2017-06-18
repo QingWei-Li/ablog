@@ -11,8 +11,16 @@ export default class UserController {
   }
 
   @Post()
-  public async create(@Body() body: IUserModel): Promise<IUserModel> {
-    return await UserModel.create(body);
+  public async create(
+    @Body() body: IUserModel,
+    @CurrentSession() session: any
+  ): Promise<IUserModel> {
+    const user = await UserModel.create(body);
+
+    session.user = user._id;
+    delete user.password;
+
+    return user;
   }
 
   @Use(Authorized)
@@ -22,5 +30,15 @@ export default class UserController {
     @CurrentSession() session: any
   ): Promise<IUserModel> {
     return await UserModel.update(session.user, body);
+  }
+
+  @Use(Authorized)
+  @Get("/current")
+  public async getCurrent(@CurrentSession() session: any): Promise<IUserModel> {
+    const user = await UserModel.findOne({ _id: session.user }).select(
+      "-password"
+    );
+
+    return user;
   }
 }

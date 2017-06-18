@@ -1,5 +1,7 @@
+import Avatar from "@/components/Avatar";
 import "@/styles/PageList.styl";
 import { Component, h } from "preact";
+import { http } from "@/utils";
 
 const MainBanner = ({ count }) =>
   <div class="List__banner">
@@ -7,15 +9,39 @@ const MainBanner = ({ count }) =>
     <p>总共发布了 {count} 篇</p>
   </div>;
 
-export default class List extends Component<any, null> {
-  public async componentDidMount() {
-    console.log(this.props);
+const UserBanner = ({ user, count }) =>
+  <div class="List__banner">
+    <p>
+      <Avatar {...user} />
+    </p>
+    <h3>{user.name}</h3>
+    <p>总共发布了 {count} 篇</p>
+  </div>;
+
+export default class List extends Component<any, any> {
+  public state = { count: 0, list: [] };
+
+  public async componentWillMount() {
+    const { user } = this.props;
+    const query: any = {};
+
+    if (user) {
+      query.author = user.name;
+    }
+
+    const result = await http.get("/posts", {
+      params: query
+    });
+
+    this.setState(result.data);
   }
 
-  public render() {
+  public render({ user }, { list, count }) {
     return (
       <section class="List">
-        <MainBanner count={50} />
+        {user
+          ? <UserBanner user={user} count={count} />
+          : <MainBanner count={count} />}
       </section>
     );
   }

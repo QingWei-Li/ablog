@@ -14,12 +14,16 @@ const app = new Koa();
 app.keys = ["better call saul"];
 
 app.use(bodyParser());
-app.use(kcors());
+app.use(
+  kcors({
+    credentials: true
+  })
+);
 app.use(logger());
 app.use(
   session(
     {
-      maxAge: 86400000,
+      maxAge: 86400000 * 30,
       httpOnly: false
     },
     app

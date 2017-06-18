@@ -29,7 +29,7 @@ export default class Home extends Component<
   any,
   { newList: IPost; hotList: IPost }
 > {
-  public async componentDidMount() {
+  public async componentWillMount() {
     const newList = await http.get("/posts/type/new");
     const hotList = await http.get("/posts/type/hot");
 
@@ -39,12 +39,14 @@ export default class Home extends Component<
     });
   }
 
-  public render({}, { newList, hotList }) {
+  public render({ user }, { newList, hotList }) {
     return (
       <section class="Home">
         <Banner />
         <p>
-          <button class="button">开始写文章</button>
+          <Link href={user ? "/edit" : "/login"} class="button">
+            {user ? "开始写文章" : "登录后开始写文章"}
+          </Link>
         </p>
         <div class="Home__part">
           <h4 class="Home__part__title">最新</h4>

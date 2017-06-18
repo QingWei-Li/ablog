@@ -15,16 +15,32 @@ export function random(min: number, max: number) {
  * initialize axios
  */
 const instance = axios.create({
-  baseURL: `${process.env.API_URI}/v1/`
+  baseURL: `${process.env.API_URI}/v1/`,
+  withCredentials: true
 });
 
-instance.interceptors.request.use(config => {
-  nprogress.start();
-  return config;
+nprogress.configure({
+  showSpinner: false
 });
-instance.interceptors.response.use(response => {
-  nprogress.done();
-  return response;
-});
+instance.interceptors.request.use(
+  config => {
+    nprogress.start();
+    return config;
+  },
+  error => {
+    nprogress.done();
+    return Promise.reject(error);
+  }
+);
+instance.interceptors.response.use(
+  response => {
+    nprogress.done();
+    return response;
+  },
+  error => {
+    nprogress.done();
+    return Promise.reject(error);
+  }
+);
 
 export const http = instance;
