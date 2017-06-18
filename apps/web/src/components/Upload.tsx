@@ -1,22 +1,31 @@
+import "@/styles/Upload.styl";
 import { Component, h } from "preact";
 
-export default class Upload extends Component<any, null> {
-  public uploadFile(e: Event) {
+interface IUploadProps {
+  id?: string;
+  height?: string;
+  width?: string;
+  onChange: (...args) => void;
+}
+
+export default class Upload extends Component<IUploadProps, null> {
+  public uploadFile = (e: Event) => {
     e.preventDefault();
     console.log(this);
-  }
+    this.props.onChange();
+  };
 
-  public render() {
+  public render({ id = "input", height, width, onChange }) {
     return (
       <div
-        onClick={this.uploadFile.bind(this)}
+        onClick={this.uploadFile}
         class="Upload"
-        onDrag={this.uploadFile.bind(this)}
+        style={{ height, width }}
+        onDrag={this.uploadFile}
       >
-        <input id="input" type="file" />
+        <input id={id} type="file" />
         <div class="Upload__text">
-          <h4>添加题图</h4>
-          <p>点击或者拖拽上传</p>
+          {this.props.children}
         </div>
       </div>
     );

@@ -1,3 +1,4 @@
+import "@/styles/PageRoot.styl";
 import { Component, h } from "preact";
 import * as AsyncRoute from "preact-async-route";
 import Router from "preact-router";
@@ -5,6 +6,7 @@ import { Link } from "preact-router/match";
 
 import Home from "./Home";
 import List from "./List";
+import Login from "./Login";
 
 function getEdit() {
   return System.import("./Edit").then((m: any) => m.default);
@@ -37,7 +39,7 @@ class Root extends Component<{}, null> {
         <nav class="Nav">
           <div class="container">
             <Link href="/">纸糊</Link>
-            <Link href="/" class="float-right">登录／注册</Link>
+            <Link href="/login" class="float-right">登录 / 注册</Link>
           </div>
         </nav>
         <main class="container">
@@ -45,6 +47,7 @@ class Root extends Component<{}, null> {
             <Home path="/" />
             <List path="/u/:user" />
             <List path="/posts" />
+            <Login path="/login" />
             <AsyncRoute
               path="/edit"
               component={getEdit}

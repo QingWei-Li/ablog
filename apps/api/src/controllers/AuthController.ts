@@ -34,7 +34,7 @@ export default class AuthController {
   }
 
   @Use(Authorized)
-  @Get("/signup")
+  @Get("/signout")
   public signup(@CurrentSession() session: any): void {
     session.user = null;
 

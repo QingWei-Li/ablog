@@ -1,3 +1,4 @@
+import "@/styles/PageList.styl";
 import { Component, h } from "preact";
 
 const MainBanner = ({ count }) =>

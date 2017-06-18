@@ -1,5 +1,6 @@
 import Card from "@/components/Card";
 import { IPost } from "@/interface";
+import "@/styles/PageHome.styl";
 import { http } from "@/utils";
 import * as chunk from "chunk";
 import { Component, h } from "preact";

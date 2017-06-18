@@ -1,5 +1,6 @@
 import axios from "axios";
 import * as nprogress from "nprogress";
+import "nprogress/nprogress.css";
 
 /**
  * Return random number in range

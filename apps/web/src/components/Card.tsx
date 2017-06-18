@@ -1,6 +1,8 @@
 import { IPost } from "@/interface";
+import "@/styles/Card.styl";
 import { random } from "@/utils";
 import { h } from "preact";
+import TimeAgo from "timeago-react";
 
 export default function({
   className,
@@ -16,7 +18,9 @@ export default function({
           href={post.url}
         />
       </div>
-      <div class="Card__content">abc</div>
+      <div class="Card__content">
+        <TimeAgo datetime={"2016-08-08 08:08:08"} locale="zh_CN" />
+      </div>
     </div>
   );
 }

@@ -56,7 +56,7 @@ export default class Edit extends Component<any, any> {
   public render() {
     return (
       <div>
-        <Upload />
+        <Upload onChange={this.linkState("picture")} />
         <textarea placeholder="添加标题" />
         <textarea ref={editor => this.setState({ editor })} />
       </div>
