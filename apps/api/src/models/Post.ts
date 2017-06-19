@@ -1,5 +1,4 @@
 import { Document, model, Schema } from "mongoose";
-import { ICommentModel } from "./comment";
 import { IUserModel } from "./user";
 
 export interface IPostModel extends Document {
@@ -9,20 +8,22 @@ export interface IPostModel extends Document {
   rawContent: string;
   content: string;
   summary: string;
-  comments: ICommentModel[];
   createdAt: Date;
   updatedAt: Date;
+  pv?: number;
+  comments: number;
 }
 
 const PostSchema = new Schema(
   {
     title: { type: String, required: true },
     author: { type: Schema.Types.ObjectId, ref: "User", required: true },
-    comments: [{ type: Schema.Types.ObjectId, ref: "Comment", required: true }],
     content: { type: String, required: true },
     rawContent: { type: String, required: true },
     summary: { type: String, required: true },
-    picture: { type: String }
+    picture: { type: String },
+    pv: { type: Number, default: 0 },
+    comments: { type: Number, default: 0 }
   },
   {
     timestamps: true

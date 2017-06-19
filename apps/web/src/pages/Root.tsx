@@ -35,11 +35,18 @@ const NavTool = ({ user }) =>
 class Root extends Component<{}, any> {
   public async getCurrentUser() {
     const localUser = store2.get("user");
-    this.setState({ user: localUser });
+    if (localUser) {
+      this.setState({ user: localUser });
+    }
 
-    const user = (await http.get("/user/current")).data;
-    this.setState({ user });
-    store2.set("user", user);
+    try {
+      const user = (await http.get("/user/current")).data;
+      this.setState({ user });
+      store2.set("user", user);
+    } catch (e) {
+      this.setState({ user: undefined });
+      store2.remove("user");
+    }
   }
 
   public componentWillMount() {
@@ -62,7 +69,7 @@ class Root extends Component<{}, any> {
             <Home path="/" user={user} />
             <List path="/u/:name" user={user} />
             <List path="/posts" />
-            <Post path="/posts/:id" />
+            <Post path="/p/:id" />
             <AsyncRoute
               path="/login"
               component={getLogin}

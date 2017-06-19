@@ -96,4 +96,16 @@ export default class PostsController {
   public async getById(@Param("id") id: string): Promise<IPostModel> {
     return await PostModel.findById(id).populate("author").populate("comments");
   }
+
+  @Get("/pv/:id")
+  public async inPv(@Param("id") id: string) {
+    return await PostModel.update(
+      { _id: id },
+      {
+        $inc: {
+          pv: 1
+        }
+      }
+    );
+  }
 }

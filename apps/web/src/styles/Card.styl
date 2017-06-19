@@ -18,12 +18,48 @@
       background-position center center
       background-color #f4f5f6
 
-  &__content
-    flex auto
+  &__main
+    flex 1
+    padding 12px
+    position relative
+    height 40%
 
-  @media (min-width: 40.0rem)
+    h3 a
+      color inherit
+
+    p
+      display none
+      font-size 1.5rem
+      overflow hidden
+      text-overflow ellipsis
+      -webkit-box-orient vertical
+      -webkit-line-clamp 4
+
+  &__user
+    flex 1
+
+    &__part
+      margin 0 .4rem
+
+  &__footer
+    position absolute
+    bottom 0
+    left 0
+    right 0
+    padding 0 12px 12px
+    display flex
+    align-items flex-end
+    font-size 1.2rem
+
+  @media (min-width 40.0rem)
     &
       display flex!important
+
+      &__main
+        height auto
+
+        p
+          display -webkit-box
 
       &__picture
         width 40%

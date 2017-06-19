@@ -3,7 +3,6 @@ import "@/styles/PageEdit.styl";
 import { http } from "@/utils";
 import "font-awesome/css/font-awesome.css";
 import * as hljs from "highlight.js";
-import "highlight.js/styles/github.css";
 // 注意引入的顺序
 // tslint:disable-next-line:ordered-imports
 import "inline-attachment/src/inline-attachment";

@@ -1,4 +1,13 @@
-import { Body, Controller, Get, Param, Post, Put, Use } from "trafficlight";
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Put,
+  Use,
+  QueryParam
+} from "trafficlight";
 import { CurrentSession } from "../lib/decorates";
 import Authorized from "../middlewares/authorized";
 import { IUserModel, UserModel } from "../models/user";
@@ -38,6 +47,13 @@ export default class UserController {
     const user = await UserModel.findOne({ _id: session.user }).select(
       "-password"
     );
+
+    return user;
+  }
+
+  @Get()
+  public async getByName(@QueryParam("name") name: any): Promise<IUserModel> {
+    const user = await UserModel.findOne({ name }).select("-password");
 
     return user;
   }

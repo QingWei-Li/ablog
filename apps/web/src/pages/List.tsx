@@ -1,4 +1,5 @@
 import Avatar from "@/components/Avatar";
+import Card from "@/components/Card";
 import "@/styles/PageList.styl";
 import { http } from "@/utils";
 import { Component, h } from "preact";
@@ -19,14 +20,16 @@ const UserBanner = ({ user, count }) =>
   </div>;
 
 export default class List extends Component<any, any> {
-  public state = { count: 0, list: [] };
+  public state = { count: 0, data: [], user: undefined };
 
   public async componentWillMount() {
-    const { user } = this.props;
+    const { name } = this.props;
     const query: any = {};
 
-    if (user) {
+    if (name) {
+      const user = (await http.get(`/user?name=${name}`)).data;
       query.author = user.name;
+      this.setState({ user });
     }
 
     const result = await http.get("/posts", {
@@ -36,12 +39,15 @@ export default class List extends Component<any, any> {
     this.setState(result.data);
   }
 
-  public render({ user }, { list, count }) {
+  public render({}, { data, count, user }) {
     return (
       <section class="List">
         {user
           ? <UserBanner user={user} count={count} />
           : <MainBanner count={count} />}
+        <div>
+          {data.map(post => <Card post={post} />)}
+        </div>
       </section>
     );
   }
