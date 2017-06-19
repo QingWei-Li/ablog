@@ -5,8 +5,8 @@ import {
   Param,
   Post,
   Put,
-  Use,
-  QueryParam
+  QueryParam,
+  Use
 } from "trafficlight";
 import { CurrentSession } from "../lib/decorates";
 import Authorized from "../middlewares/authorized";
