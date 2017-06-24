@@ -4,7 +4,6 @@ import "@/styles/PageLogin.styl";
 import { http } from "@/utils";
 import * as md5 from "md5";
 import { Component, h } from "preact";
-import { route } from "preact-router";
 
 interface ILoginState {
   isNew: boolean;
@@ -126,7 +125,7 @@ export default class Login extends Component<any, ILoginState> {
 
     try {
       await http.post("/signin", data);
-      route("/");
+      location.href = "/";
     } catch (err) {
       this.showError("登录失败，用户名或密码错误");
     }
@@ -156,7 +155,7 @@ export default class Login extends Component<any, ILoginState> {
 
     try {
       await http.post("/user", formData);
-      route("/");
+      location.href = "/";
     } catch (err) {
       this.showError(err.response && err.response.data.message);
     }

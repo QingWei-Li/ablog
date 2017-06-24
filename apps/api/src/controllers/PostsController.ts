@@ -94,7 +94,9 @@ export default class PostsController {
 
   @Get("/:id")
   public async getById(@Param("id") id: string): Promise<IPostModel> {
-    return await PostModel.findById(id).populate("author").populate("comments");
+    return await PostModel.findById(id)
+      .populate("author", "name email avatar")
+      .select("-rawContent");
   }
 
   @Get("/pv/:id")
