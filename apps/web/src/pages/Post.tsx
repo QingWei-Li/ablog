@@ -13,14 +13,15 @@ export default class Post extends Component<any, any> {
     this.setState({
       post: result.data
     });
+  }
 
+  public componentDidUpdate() {
+    this.state.imgs.forEach(n => n());
     this.state.imgs = [].slice
       .call(this.base.querySelectorAll("article img"))
       .map(zoomImage);
-
-    console.log(this.base);
-    console.log(this.state.imgs);
   }
+
   public componentDidUnMount() {
     this.state.imgs.forEach(n => n());
   }
