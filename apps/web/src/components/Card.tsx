@@ -1,14 +1,10 @@
 import Avatar from "@/components/Avatar";
 import { IPost } from "@/interface";
 import "@/styles/Card.styl";
-import { random } from "@/utils";
+import { random, randomImage } from "@/utils";
 import { h } from "preact";
 import { Link } from "preact-router/match";
 import TimeAgo from "timeago-react";
-
-function randomImage() {
-  return `https://unsplash.it/600/${random(600, 700)}`;
-}
 
 export default function({
   className = "",

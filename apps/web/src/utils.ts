@@ -44,3 +44,7 @@ instance.interceptors.response.use(
 );
 
 export const http = instance;
+
+export function randomImage(width = 600, height = 700) {
+  return `https://unsplash.it/600/${random(width, height)}`;
+}
