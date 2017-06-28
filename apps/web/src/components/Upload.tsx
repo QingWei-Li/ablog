@@ -7,6 +7,7 @@ interface IUploadProps {
   id?: string;
   height?: string;
   width?: string;
+  value?: string;
   onChange: (...args) => void;
 }
 
@@ -25,11 +26,13 @@ export default class Upload extends Component<IUploadProps, any> {
     this.props.onChange(result.data.data.url);
   };
 
-  public render({ id = "input", height, width, onChange }, { file }) {
+  public render({ id = "input", height, width, onChange, value }, { file }) {
     return (
       <Dropzone
         style={{
-          backgroundImage: file ? `url(${file.preview})` : "",
+          backgroundImage: file
+            ? `url(${file.preview})`
+            : value ? `url(${value}` : "",
           height,
           width
         }}
@@ -38,7 +41,11 @@ export default class Upload extends Component<IUploadProps, any> {
         multiple={false}
         onDrop={this.uploadFile}
       >
-        {file ? "" : <div class="Upload__text">{this.props.children}</div>}
+        {file || value
+          ? ""
+          : <div class="Upload__text">
+              {this.props.children}
+            </div>}
       </Dropzone>
     );
   }

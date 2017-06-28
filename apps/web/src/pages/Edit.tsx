@@ -1,7 +1,6 @@
 import Upload from "@/components/Upload";
 import "@/styles/PageEdit.styl";
 import { http } from "@/utils";
-import "font-awesome/css/font-awesome.css";
 import * as hljs from "highlight.js";
 // 注意引入的顺序
 // tslint:disable-next-line:ordered-imports
@@ -25,14 +24,27 @@ export default class Edit extends Component<any, any> {
     };
   }
 
-  public componentDidMount() {
+  public async componentDidMount() {
     this.initEditor(this.state.eidtor);
+
+    const { id } = this.props;
+
+    if (!id) {
+      return;
+    }
+
+    try {
+      const formData = (await http.get(`/posts/${id}/edit`)).data;
+      this.setState({ formData });
+      this.state.simplemde.value(formData.rawContent);
+    } catch (e) {
+      location.href = "/";
+    }
   }
 
   public initEditor(node: Element) {
     const simplemde = new SimpleMDE({
       element: node,
-      autoDownloadFontAwesome: false,
       spellChecker: false,
       renderingConfig: {
         codeSyntaxHighlighting: true
@@ -104,13 +116,16 @@ export default class Edit extends Component<any, any> {
     this.state.simplemde.toTextArea();
     this.state.simplemde.clearAutosavedValue();
 
-    route(`/posts/${id || result.data._id}`);
+    route(`/p/${id || result.data._id}`);
   };
 
   public render() {
     return (
       <form class="Edit" onSubmit={this.submitPost}>
-        <Upload onChange={this.linkState("formData.picture")}>
+        <Upload
+          value={this.state.formData.picture}
+          onChange={this.linkState("formData.picture")}
+        >
           <h4>添加题图</h4>
           <p>点击或者拖拽上传</p>
         </Upload>

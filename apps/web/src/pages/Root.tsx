@@ -29,7 +29,9 @@ const NavTool = ({ user }) =>
       写文章
     </Link>
     <Avatar {...user} class="Nav__tool__item" />
-    <Link class="Nav__tool__item" href={`/u/${user.name}`}>{user.name}</Link>
+    <Link class="Nav__tool__item" href={`/u/${user.name}`}>
+      {user.name}
+    </Link>
   </div>;
 
 class Root extends Component<{}, any> {
@@ -61,7 +63,9 @@ class Root extends Component<{}, any> {
             <Link href="/">纸糊</Link>
             {user
               ? <NavTool user={user} />
-              : <Link href="/login" class="float-right">登录 / 注册</Link>}
+              : <Link href="/login" class="float-right">
+                  登录 / 注册
+                </Link>}
           </div>
         </nav>
         <main class="container">
@@ -77,6 +81,11 @@ class Root extends Component<{}, any> {
             />
             <AsyncRoute
               path="/edit"
+              component={getEdit}
+              loading={() => <EditPlaceholder />}
+            />
+            <AsyncRoute
+              path="/edit/:id"
               component={getEdit}
               loading={() => <EditPlaceholder />}
             />

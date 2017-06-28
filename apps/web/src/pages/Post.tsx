@@ -36,10 +36,15 @@ export default class Post extends Component<any, any> {
             src={post.picture || randomImage(350, 370)}
             alt={post.title}
           />}
-        <h1>{post.title}</h1>
-        <div>
-          <span>{post.author.name}</span>
+        <h1 class="Post__title">
+          {post.title}
+        </h1>
+        <div class="Post__info">
+          <span>
+            {post.author.name}
+          </span>
           <TimeAgo datetime={post.createdAt || new Date()} locale="zh_CN" />
+          <a href={`/edit/${post._id}`}>编辑</a>
         </div>
         <article
           class="Post__article"

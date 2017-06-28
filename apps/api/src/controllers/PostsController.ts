@@ -99,6 +99,21 @@ export default class PostsController {
       .select("-rawContent");
   }
 
+  @Use(Authorized)
+  @Get("/:id/edit")
+  public async eitById(
+    @Param("id") id: string,
+    @CurrentSession() session: any
+  ): Promise<IPostModel> {
+    const data = await PostModel.findById(id).populate("author");
+
+    if (!data || String(data.author._id) !== String(session.user)) {
+      throw Boom.unauthorized();
+    }
+
+    return data;
+  }
+
   @Get("/pv/:id")
   public async inPv(@Param("id") id: string) {
     return await PostModel.update(
