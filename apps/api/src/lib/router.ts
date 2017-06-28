@@ -3,7 +3,6 @@ import * as Router from "koa-router";
 import { bindRoutes } from "trafficlight";
 
 import AuthController from "../controllers/AuthController";
-import CommentsController from "../controllers/CommentsController";
 import PingController from "../controllers/PingController";
 import PostsController from "../controllers/PostsController";
 import UserController from "../controllers/UserController";
@@ -17,8 +16,7 @@ export default function(app) {
     PostsController,
     PingController,
     UserController,
-    AuthController,
-    CommentsController
+    AuthController
   ]);
   app.use(routerRoutes.routes());
   app.use(routerRoutes.allowedMethods());

@@ -32,13 +32,7 @@ interface ICommentProps {
 
 export default class Comment extends Component<ICommentProps, any> {
   public async componentWillMount() {
-    const postId = this.props.postId;
-
-    const result = await http.get("/comments", {
-      params: {
-        post: postId
-      }
-    });
+    const result = await http.get(`/posts/${this.props.postId}/comments`);
 
     console.log(result.data);
   }

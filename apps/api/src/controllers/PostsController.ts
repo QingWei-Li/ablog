@@ -11,6 +11,7 @@ import {
 } from "trafficlight";
 import { CurrentSession } from "../lib/decorates";
 import Authorized from "../middlewares/authorized";
+import { CommentModel, ICommentModel } from "../models/Comment";
 import { IPostModel, PostModel } from "../models/post";
 import { UserModel } from "../models/user";
 
@@ -124,5 +125,12 @@ export default class PostsController {
         }
       }
     );
+  }
+
+  @Get("/:id/comments")
+  public async getComments(
+    @Param("post") post: string
+  ): Promise<ICommentModel[]> {
+    return await CommentModel.find({ post });
   }
 }
