@@ -73,7 +73,7 @@ class Root extends Component<{}, any> {
             <Home path="/" user={user} />
             <List path="/u/:name" user={user} />
             <List path="/posts" />
-            <Post path="/p/:id" />
+            <Post path="/p/:id" user={user} />
             <AsyncRoute
               path="/login"
               component={getLogin}

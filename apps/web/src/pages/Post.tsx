@@ -1,3 +1,4 @@
+import Comment from "@/components/Comment";
 import { IPost } from "@/interface";
 import "@/styles/PagePost.styl";
 import { http, randomImage } from "@/utils";
@@ -27,7 +28,7 @@ export default class Post extends Component<any, any> {
     this.state.imgs.forEach(n => n());
   }
 
-  public render({}, { post, loading }) {
+  public render({ user }, { post, loading }) {
     return (
       <div class="Post">
         {!loading &&
@@ -50,6 +51,7 @@ export default class Post extends Component<any, any> {
           class="Post__article"
           dangerouslySetInnerHTML={{ __html: post.content }}
         />
+        <Comment postId={post._id} user={user} />
       </div>
     );
   }

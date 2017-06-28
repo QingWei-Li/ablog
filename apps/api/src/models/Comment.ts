@@ -1,5 +1,5 @@
 import { Document, model, Schema } from "mongoose";
-import { IPostModel, PostModel } from "./Post";
+import { IPostModel } from "./Post";
 
 export interface ICommentModel extends Document {
   rawContent: string;
@@ -25,7 +25,7 @@ const CommentSchema = new Schema(
 );
 
 CommentSchema.pre("save", function(next) {
-  PostModel.update(
+  this.model("Post").update(
     { id: this._id },
     {
       $inc: {
@@ -37,7 +37,7 @@ CommentSchema.pre("save", function(next) {
 });
 
 CommentSchema.pre("delete", function(next) {
-  PostModel.update(
+  this.model("Post").update(
     { id: this._id },
     {
       $inc: {
