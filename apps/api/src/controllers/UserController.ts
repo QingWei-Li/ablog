@@ -10,7 +10,7 @@ import {
 } from "trafficlight";
 import { CurrentSession } from "../lib/decorates";
 import Authorized from "../middlewares/authorized";
-import { IUserModel, UserModel } from "../models/user";
+import { IUserModel, UserModel } from "../models/User";
 
 @Controller("/user")
 export default class UserController {

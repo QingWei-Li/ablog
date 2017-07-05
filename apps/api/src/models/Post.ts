@@ -1,5 +1,5 @@
 import { Document, model, Schema } from "mongoose";
-import { IUserModel } from "./user";
+import { IUserModel } from "./User";
 
 export interface IPostModel extends Document {
   title: string;

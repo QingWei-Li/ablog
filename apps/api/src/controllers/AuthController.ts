@@ -2,7 +2,7 @@ import * as Boom from "boom";
 import { Body, Controller, Get, Post, Use } from "trafficlight";
 import { CurrentSession } from "../lib/decorates";
 import Authorized from "../middlewares/authorized";
-import { IUserModel, UserModel } from "../models/user";
+import { IUserModel, UserModel } from "../models/User";
 
 @Controller()
 export default class AuthController {
