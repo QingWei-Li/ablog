@@ -39,7 +39,7 @@ export default class PostsController {
         .select(LIST_SELECT)
         .populate("author");
     }
-    result = await PostModel.find({}).select(LIST_SELECT).populate("author");
+    result = await PostModel.find().select(LIST_SELECT).populate("author");
 
     return {
       count: result.length,
@@ -55,15 +55,13 @@ export default class PostsController {
     limit = Number(limit);
 
     if (type === "hot") {
-      // @TODO
-      // 如何通过 comments 排序。。
-      return await PostModel.find({})
+      return await PostModel.find()
         .limit(limit)
-        .sort("-createAt")
+        .sort("-comments -pv")
         .select(LIST_SELECT)
         .populate("author");
     } else if (type === "new") {
-      return await PostModel.find({})
+      return await PostModel.find()
         .sort("-createAt")
         .select(LIST_SELECT)
         .populate("author")
@@ -115,7 +113,7 @@ export default class PostsController {
     return data;
   }
 
-  @Get("/pv/:id")
+  @Get("/:id/pv")
   public async inPv(@Param("id") id: string) {
     return await PostModel.update(
       { _id: id },
@@ -127,10 +125,35 @@ export default class PostsController {
     );
   }
 
-  @Get("/:id/comments")
+  @Get("/:post/comments")
   public async getComments(
     @Param("post") post: string
   ): Promise<ICommentModel[]> {
-    return await CommentModel.find({ post });
+    return await CommentModel.find({ post }).sort("-createdAt");
+  }
+
+  @Post("/:post/comments")
+  public async postComment(
+    @Param("post") post: string,
+    @Body() body,
+    @CurrentSession() session: any
+  ): Promise<ICommentModel> {
+    if (!body.username || !body.useremail) {
+      const user = await UserModel.findOne({ _id: session.user });
+      body.username = user.name;
+      body.useremail = user.email;
+      body.useravatar = user.avatar;
+    }
+
+    const model = {
+      rawContent: body.content,
+      content: body.content,
+      username: body.username,
+      useremail: body.useremail,
+      useravatar: body.useravatar,
+      post
+    };
+
+    return await CommentModel.create(model);
   }
 }

@@ -15,6 +15,8 @@ export default class Post extends Component<any, any> {
       post: result.data,
       loading: false
     });
+
+    await http.get(`/posts/${this.props.id}/pv`);
   }
 
   public componentDidUpdate() {
@@ -51,7 +53,7 @@ export default class Post extends Component<any, any> {
           class="Post__article"
           dangerouslySetInnerHTML={{ __html: post.content }}
         />
-        <Comment postId={post._id} user={user} />
+        {!loading && <Comment postId={post._id} user={user} />}
       </div>
     );
   }

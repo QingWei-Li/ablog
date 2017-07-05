@@ -10,5 +10,34 @@
       flex 1
 
     input[type=submit]
-      width 100px
+      min-width 100px
       margin-right 0
+
+  &__loading
+    text-align center
+
+  &__list
+    margin-top 16px
+
+  &__item
+    padding 16px 0
+    clear both
+
+  &__item:not(:last-child)
+    border-bottom 1px dashed #ccc
+
+  &__avatar
+    height 40px
+    width 40px
+    border-radius 50%
+    float left
+
+  &__detail
+    margin-left 50px
+
+    &__header
+      color #ccc
+      font-size 1.4rem
+
+    &__name
+      margin-right 10px

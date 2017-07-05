@@ -7,8 +7,8 @@ export interface ICommentModel extends Document {
   username?: string;
   useremail?: string;
   post: IPostModel;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 const CommentSchema = new Schema(
@@ -26,7 +26,7 @@ const CommentSchema = new Schema(
 
 CommentSchema.pre("save", function(next) {
   this.model("Post").update(
-    { id: this._id },
+    { _id: this.post },
     {
       $inc: {
         comments: 1
@@ -38,7 +38,7 @@ CommentSchema.pre("save", function(next) {
 
 CommentSchema.pre("delete", function(next) {
   this.model("Post").update(
-    { id: this._id },
+    { _id: this.post },
     {
       $inc: {
         comments: -1
