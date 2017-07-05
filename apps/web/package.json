@@ -7,9 +7,10 @@
   "private": true,
   "scripts": {
     "dev": "poi",
-    "build": "poi build"
+    "build": "poi build",
+    "deploy": "npm run build && gh-pages -d dist"
   },
-  "homepage": "https://ablog.surge.sh/",
+  "homepage": "https://zhuanlan.cinwell.com/",
   "author": "qingwei-li <cinwell.li@gmail.com> (https://github.com/QingWei-Li)",
   "devDependencies": {
     "@types/node": "^7.0.31",
