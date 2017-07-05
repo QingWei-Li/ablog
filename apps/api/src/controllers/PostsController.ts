@@ -12,7 +12,7 @@ import {
 import { CurrentSession } from "../lib/decorates";
 import Authorized from "../middlewares/authorized";
 import { CommentModel, ICommentModel } from "../models/Comment";
-import { IPostModel, PostModel } from "../models/post";
+import { IPostModel, PostModel } from "../models/Post";
 import { UserModel } from "../models/User";
 
 const LIST_SELECT = "summary picture createdAt title author comments";
