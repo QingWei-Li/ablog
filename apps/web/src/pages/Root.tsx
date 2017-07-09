@@ -28,7 +28,7 @@ const NavTool = ({ user }) =>
     >
       写文章
     </Link>
-    <Avatar {...user} class="Nav__tool__item" />
+    <Avatar avatar={user.avatar} name={user.name} class="Nav__tool__item" />
     <Link class="Nav__tool__item" href={`/u/${user.name}`}>
       {user.name}
     </Link>

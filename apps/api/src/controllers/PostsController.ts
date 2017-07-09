@@ -38,8 +38,9 @@ export default class PostsController {
       })
         .select(LIST_SELECT)
         .populate("author");
+    } else {
+      result = await PostModel.find().select(LIST_SELECT).populate("author");
     }
-    result = await PostModel.find().select(LIST_SELECT).populate("author");
 
     return {
       count: result.length,
