@@ -8,7 +8,7 @@
     "install": "lerna bootstrap",
     "dev": "concurrently 'cd apps/api && npm run dev' 'cd apps/web && npm run dev'",
     "build": "lerna exec 'npm run build'",
-    "deploy": "npm run build && gh-pages -d apps/web/dist",
+    "deploy": "lerna exec 'npm run deploy'",
     "lint": "tslint apps/*/src/**/*{.ts,tsx} --fix"
   },
   "engines": {
@@ -19,7 +19,6 @@
   "license": "WTFPL",
   "devDependencies": {
     "concurrently": "^3.4.0",
-    "gh-pages": "^1.0.0",
     "lerna": "^2.0.0-rc.5",
     "tslint": "^5.4.3",
     "tslint-config-prettier": "^1.1.0",
