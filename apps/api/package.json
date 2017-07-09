@@ -9,7 +9,7 @@
     "build": "tsc",
     "start": "node dist/index.js",
     "dev": "nodemon -w src -x ts-node -r dotenv-safe/config src/index.ts",
-    "deploy": "now && now alias"
+    "deploy": "now --public && now alias"
   },
   "now": {
     "name": "ablog-api",
