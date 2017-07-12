@@ -70,7 +70,7 @@ const CommentList = ({ list }) =>
         <Avatar
           class="Comment__avatar"
           name={item.username}
-          avatar={item.avatar}
+          avatar={item.useravatar}
         />
         <div class="Comment__detail">
           <div class="Comment__detail__header">

@@ -2,6 +2,10 @@ import "@/styles/_static.styl";
 import "linkstate/polyfill";
 import { h, render } from "preact";
 
+if (process.env.NODE_ENV === 'production' && location.protocol === 'http:') {
+  location.href = location.href.replace(/^http:/, 'https:')
+}
+
 let root;
 function init() {
   const App = require("./pages/Root").default;
