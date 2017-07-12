@@ -9,6 +9,8 @@
     "dev": "concurrently 'cd apps/api && npm run dev' 'cd apps/web && npm run dev'",
     "build": "lerna exec 'npm run build'",
     "deploy": "lerna exec 'npm run deploy'",
+    "deploy:api": "cd apps/api && npm run deploy",
+    "deploy:web": "cd apps/web && npm run deploy",
     "lint": "tslint apps/*/src/**/*{.ts,tsx} --fix"
   },
   "engines": {
@@ -24,6 +26,5 @@
     "tslint-config-prettier": "^1.1.0",
     "tslint-react": "^3.0.0",
     "typescript": "^2.3.4"
-  },
-  "dependencies": {}
+  }
 }

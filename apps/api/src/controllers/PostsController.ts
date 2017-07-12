@@ -60,12 +60,12 @@ export default class PostsController {
         .limit(limit)
         .sort("-comments -pv")
         .select(LIST_SELECT)
-        .populate("author");
+        .populate("author", "name email avatar");
     } else if (type === "new") {
       return await PostModel.find()
         .sort("-createAt")
         .select(LIST_SELECT)
-        .populate("author")
+        .populate("author", "name email avatar")
         .limit(limit);
     }
 
