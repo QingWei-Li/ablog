@@ -5,6 +5,7 @@
 ## Development
 
 ```sh
+cp apps/api/.env.example apps/api/.env
 npm i
 npm run dev
 
